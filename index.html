@@ -229,6 +229,153 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/05/线程池初探/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/03/05/线程池初探/" itemprop="url">线程池初探</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-03-05T15:45:14+08:00">
+                2019-03-05
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>java在1.5版本之后加入了java.util.concurrent包，主要介绍java中线程以及线程池的作用。为我们在开发中处理线程的问题提供了极大的帮助。下面主要介绍一些线程池入门的东西。</p>
+<h3 id="线程池"><a href="#线程池" class="headerlink" title="线程池"></a>线程池</h3><h5 id="线程池的作用"><a href="#线程池的作用" class="headerlink" title="线程池的作用"></a>线程池的作用</h5><p>线程池主要是用来限制系统中执行线程的数量。</p>
+<p>根据系统的环境情况，可以自动或者手动设置线程数量，达到运行的最佳效果，线程池少浪费系统资源，多了造成系统拥挤效率不高。那么，我们可以采用线程池来控制线程数量，当一个任务执行完毕，再从队列中获取最前面的任务开始执行。若队列中没有等待进程，线程池的这一资源就处于等待状态。当一个新任务需要运行时，如果线程池中有等待的工作线程，就可以执行，否则，进入等待队列。</p>
+<ol>
+<li>减少创建和销毁线程的次数，每个工作线程都可以被重复利用，可执行多个任务。</li>
+<li>根据系统的承受能力，调整线程池中工作线程的数目，防止因为消耗过大的内存，而把服务器累趴下（每个线程大约1MB的内存，线程开的越多，内存消耗的就越多，内存消耗的越多，最后有可能导致的就是死机。）</li>
+</ol>
+<h5 id="基本组成部分"><a href="#基本组成部分" class="headerlink" title="基本组成部分"></a>基本组成部分</h5><p>java中的线程池的顶级接口是Executor，但严格意义上讲Executor并不是一个线程池，而只是一个执行线程的工具。真正的线程池接口是ExecutorService。</p>
+<ul>
+<li>线程池管理（ThreadPool）：用于创建并管理线程池，包括，创建线程池，销毁线程池，添加新任务。</li>
+<li>工作线程（PoolWorker）：线程池中线程，在没有任务时处于等待状态，可以循环的执行任务。</li>
+<li>任务接口（Task）：每个任务必须实现的接口，以供工作线程调度任务执行，它主要规定了任务的入口，任务执行完后的收尾工作，任务的执行状态等。</li>
+<li>任务队列（taskQueue）：用于存放没有处理的任务。是一种缓冲机制。</li>
+</ul>
+<h3 id="常见线程池"><a href="#常见线程池" class="headerlink" title="常见线程池"></a>常见线程池</h3><ol>
+<li><p>newsingleThreadExecutor</p>
+<p>单个线程的线程池，即线程池中每次只有一个线程在工作，单线程串行任务</p>
+</li>
+<li><p>newFixedThreadExecutor</p>
+<p>固定数量的线程池，每提交一个任务就是一个线程，直到达到线程池的最大数量，然后后面进入等待队列直到前面的任务完成才继续执行。</p>
+</li>
+<li><p>newCacheThreadExecutor（推荐使用）</p>
+<p>可缓存线程池，当线程池大小超过了处理任务所需的线程，那么就会回收部分空闲（一般是60s无执行的线程），当有任务来时，又智能的添加新线程来执行。</p>
+</li>
+<li><p>newScheduleThreadExecutor</p>
+<p>大小无限制的线程池，支持定时和周期性的执行线程。</p>
+</li>
+</ol>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/05/hello-world/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -390,7 +537,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-count">2</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
